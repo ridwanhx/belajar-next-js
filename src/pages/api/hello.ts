@@ -1,3 +1,4 @@
+// EPS 01: Setup NEXT.js
 // Next.js bukan hanya bisa digunakan sebagai frontend, namun Next.js ini sifatnya adalah fullstack
 // artinya kita juga bisa membuat backend didalam kerangka kerja Next.js
 // seperti hal-nya yang coba disampaikan pada contoh berikut, dimana kita pada folder ini bisa mendefinisikan API
