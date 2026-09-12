@@ -1,0 +1,10 @@
+## Sebelum kita lanjutkan pada pembahasan mengenai Link dan Navigation pada Next.js, alangkah baiknya kita melengkapi terlebih dahulu untuk bagian sebelumnya yang terlewat yaitu pembahasan mengenai segments/segmentation
+## singkatnya, segments ini merupakan satu konsep dimana jika kita sebelumnya hanya menangani satu parameter saja yang dikirimkan pada url yang didefinisikan sebagai slug, alias, atau id, segments memungkinkan kita untuk bisa menangani multiparameter yang dikirimkan pada url
+## yang kemudian setelah kita kirim lebih dari satu parameter melalui url, selanjutnya parameter-parameter tersebut akan diubah kedalam bentuk object oleh Next, dan dari sanalah kita bisa mendefinisikan berbagai macam nilai melalui url
+## konsep seperti ini akan sangat membantu misal untuk kasus dimana url menerima banyak parameter, misal:
+localhost:300/shop/clothes/mens/t-shirt
+## pada pengimplementasiannya, penamaan file untuk implementasi segments ini dibungkus kedalam kurung siku, misal [...nama-file], contoh: [...slug], [...products], dan masih banyak lagi disesuaikan dengan preferensi
+## kemudian, untuk menjadikan segments ini agar bersifat opsional, (kita perlu mengakses halaman utama shop page tanpa harus mendefinisikan file index.tsx didalam folder shop, dan/atau tanpa menambahkan beberapa parameter tambahan pada url), kita bisa cukup dengan menambahkan kurung siku nya lagi, seperti: [[...nama-file]] 
+
+# Eps 03: Link & Navigation
+## Masuk ke inti bahasan, pada Next.js, untuk melakukan Link cukup mudah, jika pada react, Link ini mengharuskan kita mendefinisikan props nya adalah sebagai to, contoh: <Link to="nama-route"/>, nah pada Next jauh lebih simple lagi, kita bahkan mendefinisikan props nya ialah dengan href sebagaimana properti yang biasanya kita gunakan pada tag <a>/anchor, contoh: <Link href="nama-route"/>
