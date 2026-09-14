@@ -9,7 +9,7 @@ type AppShellProps = {
 
 // disable navbar
 // inisialisasi variabel di halaman mana saja tampilan navbar ini akan di disable
-const disableNavbar = ["/auth/login", "/auth/register"];
+const disableNavbar = ["/auth/login", "/auth/register", "/404"];
 
 export default function AppShell(props: AppShellProps) {
     const { children } = props;
