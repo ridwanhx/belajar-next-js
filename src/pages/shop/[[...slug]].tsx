@@ -6,7 +6,7 @@ export default function ShopPage() {
     // inisialisasi push dari useRouter
     const { push } = useRouter();
     // inisialisasi state
-    const [isLogin, setIsLogin] = useState(false);
+    const [isLogin, setIsLogin] = useState(true);
     console.log(isLogin);
     // inisialisasi use effect validasi login
     useEffect(() => {
