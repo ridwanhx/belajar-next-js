@@ -10,6 +10,9 @@ export default function Document() {
 
         {/* inisialisasi meta global lainnya */}
         <meta name='author' content='Muhamad Ridwan' />
+
+        {/* inisialisasi icon */}
+        <link rel="shortcut icon" href="/main-icon.svg" type="image/x-icon" />
       </Head>
       <body>
         <Main />
