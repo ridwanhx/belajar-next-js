@@ -24,6 +24,7 @@
     "typescript": "6.0.3"
   },
   "devDependencies": {
+    "@iconify/react": "^6.0.2",
     "sass": "^1.104.1"
   }
 }

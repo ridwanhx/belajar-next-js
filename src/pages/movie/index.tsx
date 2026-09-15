@@ -1,5 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { Icon } from "@iconify/react";
+import { Timestamp } from "firebase/firestore";
 
 // inisialisasi type
 type CastMember = {
@@ -14,6 +16,8 @@ type movieType = {
   director: string;
   casts: CastMember[];
   rating: number;
+  poster: string;
+  release_date: Timestamp;
 };
 
 export default function MoviePage() {
@@ -39,55 +43,64 @@ export default function MoviePage() {
       // tampilkan data pada console (debugging)
       .then((response) => setMovies(response.data));
   }, []);
+
   return (
-    <div className="p-9 h-screen">
-      <h1 className="text-3xl mb-3">Movie Page</h1>
-      <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200 text-left text-sm">
-          <thead className="bg-gray-50">
-            <tr>
-              <th className="px-6 py-3 font-medium text-gray-700">No.</th>
-              <th className="px-6 py-3 font-medium text-gray-700">Judul</th>
-              <th className="px-6 py-3 font-medium text-gray-700">Kategori</th>
-              <th className="px-6 py-3 font-medium text-gray-700">Sutradara</th>
-              <th className="px-6 py-3 font-medium text-gray-700">Pemeran</th>
-              <th className="px-6 py-3 font-medium text-gray-700">Rating</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-200 bg-white">
+    <div className="px-9 py-6">
+      <h1 className="text-lg md:text-3xl mb-3">Movie Page</h1>
+      
+      <div className="grid grid-cols-12 gap-4">
+        <div className="col-span-12 lg:col-span-3">
+          <div className="flex-col gap-4">
+            <div className="flex justify-between items-center w-full bg-white rounded-lg border border-slate-400 p-4 shadow-sm mb-3 cursor-pointer hover:bg-slate-100">
+              <h5 className="font-semibold text-slate-800">Sort</h5>
+              <Icon icon="basil:caret-right-outline" className="text-3xl" />
+            </div>
+            <div className="flex justify-between items-center w-full bg-white rounded-lg border border-slate-400 p-4 shadow-sm mb-3 cursor-pointer hover:bg-slate-100">
+              <h5 className="font-semibold text-slate-800">Where to watch</h5>
+              <div className="flex items-center">
+                <span className="text-sm py px-3 rounded-l-full rounded-r-full bg-slate-200">48</span>
+                <Icon icon="basil:caret-right-outline" className="text-3xl" />
+              </div>
+            </div>
+            <div className="flex justify-between items-center w-full bg-white rounded-lg border border-slate-400 p-4 shadow-sm mb-3 cursor-pointer hover:bg-slate-100">
+              <h5 className="font-semibold text-slate-800">Filters</h5>
+              <Icon icon="basil:caret-right-outline" className="text-3xl" />
+            </div>
+            <button className="w-full p-4 border border-slate-400 bg-slate-100 rounded-l-full rounded-r-full mt-6 mb-3 shadow-sm">
+              <span className="text-lg font-semibold text-slate-600">Search</span>
+            </button>
+          </div>
+        </div>
+        <div className="col-span-12 lg:col-span-9">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {movies.map((movie: movieType, index: number) => (
-              <tr
-                key={movie.id || index}
-                className="hover:bg-amber-400 cursor-pointer transition-colors duration-150"
-              >
-                <td className="whitespace-nowrap px-6 py-4 text-gray-900">
-                  {index + 1}
-                </td>
-                <td className="whitespace-nowrap px-6 py-4 text-gray-900">
-                  {movie.title}
-                </td>
-                <td className="whitespace-nowrap px-6 py-4 text-gray-900">
-                  {movie.category.join(", ")}
-                </td>
-                <td className="whitespace-nowrap px-6 py-4 text-gray-900">
-                  {movie.director}
-                </td>
-                <td className="whitespace-nowrap px-6 py-4 text-gray-900">
-                  {movie.casts.map((cast) => (
-                    <ul>
-                      <li key={cast.id}>
-                        {cast.name} as {cast.role}
-                      </li>
-                    </ul>
-                  ))}
-                </td>
-                <td className="whitespace-nowrap px-6 py-4 text-gray-900">
-                  ⭐ {movie.rating}
-                </td>
-              </tr>
+              <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm cursor-pointer" key={movie.id || index}>
+              <img src={movie.poster} alt="img-1" className="w-full" />
+              <div className="flex-col p-4">
+                  <h3 className="text-sm md:text-md lg:text-lg font-semibold text-slate-800 capitalize">{ movie.title }</h3>
+                  <small className="text-xs lg:text-sm block mb-3 capitalize text-slate-400">{ movie.category.join(", ") }</small>
+                <div className="flex justify-between items-center">
+                    <span className="text-xs md:text-sm lg:text-md font-light text-slate-400">
+                      {/* konversi timestamps firebase ke local date string */}
+                      {/* format: Jun 31, 2026 */}
+                      {movie.release_date?.seconds ? new Date(movie.release_date.seconds * 1000).toLocaleDateString("en-US", {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric'
+                      }) : "N/A"}
+                    </span>
+                  <div className="flex justify-between items-center rounded-l-full rounded-r-full gap-1 lg:gap-2">
+                    <Icon icon={"basil:star-solid"} className="text-amber-400" />
+                    <span className="text-xs md:text-sm lg:text-md text-slate-800">
+                      {movie.rating}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              </div>
             ))}
-          </tbody>
-        </table>
+          </div>
+        </div>
       </div>
     </div>
   );
