@@ -1,4 +1,4 @@
-import navbarStyles from "./Navbar.module.css"
+import navbarStyles from "./Navbar.module.scss"
 export default function Navbar() {
     return (
         <nav className={navbarStyles.navbar}>
