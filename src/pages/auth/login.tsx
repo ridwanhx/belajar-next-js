@@ -1,9 +1,7 @@
-import LoginViews from "@/views/auth/login";
+import LoginViews from "@/views/Auth/Login";
 
 const LoginPage = () => {
-    return (
-        <LoginViews/>
-    );
-}
+  return <LoginViews />;
+};
 
 export default LoginPage;
