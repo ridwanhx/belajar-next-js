@@ -1,25 +1,8 @@
 import { Icon } from "@iconify/react";
-import { Timestamp } from "firebase/firestore";
 import DropdownElement from "@/components/elements/Dropdown";
 import { SearchButton } from "@/components/elements/Button";
 import styles from "./Movie.module.scss";
-
-// inisialisasi type
-type CastMember = {
-  id: number;
-  name: string;
-  role: string;
-};
-type movieType = {
-  id: number;
-  title: string;
-  category: string[];
-  director: string;
-  casts: CastMember[];
-  rating: number;
-  poster: string;
-  release_date: Timestamp;
-};
+import { movieType } from "@/types/movie.type";
 
 export default function MovieViews({ movies }: { movies: movieType[] }) {
   return (
