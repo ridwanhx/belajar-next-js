@@ -9,12 +9,12 @@ export default function MovieDetailViews({ movie }: { movie: movieType }) {
           <img
             src={movie.poster}
             alt="movie poster"
-            className="w-40 aspect-square"
+            className="w-40"
           />
         </li>
         <li>{movie.title}</li>
-        <li>{movie.category.join(", ")}</li>
-        <li>{movie.casts && movie.casts.map((cast) => ( `${cast.name} as ${cast.role}` ))}</li>
+        <li>{movie.category && movie.category.join(", ")}</li>
+        <li>{movie.casts && movie.casts.map((cast) => ( `${cast.name} as ${cast.role}` )).join(", ")}</li>
         <li>
           {movie.release_date?.seconds
             ? new Date(movie.release_date.seconds * 1000).toLocaleDateString(
