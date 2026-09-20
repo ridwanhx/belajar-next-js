@@ -7,7 +7,7 @@ export default function MovieDetailViews({ movie }: { movie: movieType }) {
       <ul>
         <li>
           <img
-            src={movie.poster}
+            src={movie.poster && movie.poster}
             alt="movie poster"
             className="w-40"
           />
