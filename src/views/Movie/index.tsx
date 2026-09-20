@@ -3,6 +3,7 @@ import DropdownElement from "@/components/elements/Dropdown";
 import { SearchButton } from "@/components/elements/Button";
 import styles from "./Movie.module.scss";
 import { movieType } from "@/types/movie.type";
+import Link from "next/link";
 
 export default function MovieViews({ movies }: { movies: movieType[] }) {
   return (
@@ -23,7 +24,7 @@ export default function MovieViews({ movies }: { movies: movieType[] }) {
             {movies.length > 0 ? (
               <>
                 {movies.map((movie: movieType, index: number) => (
-                  <div
+                  <Link href={`/movie/${movie.id}`}
                     className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm cursor-pointer"
                     key={movie.id || index}
                   >
@@ -60,7 +61,7 @@ export default function MovieViews({ movies }: { movies: movieType[] }) {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </>
             ) : (

@@ -1,5 +1,5 @@
 // import requirement types
-import { retrieveData } from "@/lib/firebase/service";
+import { retrieveData, retrieveDataById } from "@/lib/firebase/service";
 import { NextApiRequest, NextApiResponse } from "next";
 
 // mendefinisikan tipe data object untuk CastMember (sebelum integrasi firebase)
@@ -31,6 +31,15 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<Data>
 ) {
+    // jika request mengirimkan id melalui url, maka
+    if (req.query.movie![1]) {
+        const data = await retrieveDataById("movies", req.query.movie![1]);
+        res.status(200).json({ status: true, statusCode: 200, data });
+    } else {
+        // inisialisasi api integrasi firebase
+        const data = await retrieveData("movies");
+        res.status(200).json({ status: true, statusCode: 200, data });
+    }
     // inisialisasi api static data
     // const data = [
     //     {
@@ -110,8 +119,4 @@ export default async function handler(
     //         rating: 8
     //     },
     // ];
-    
-    // inisialisasi api integrasi firebase
-    const data = await retrieveData("movies");
-    res.status(200).json({ status: true, statusCode: 200, data });
 }

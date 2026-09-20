@@ -1,13 +1,16 @@
+import { fetcher } from "@/lib/swr/fetcher";
+import MovieDetailViews from "@/views/DetailMovie";
 import { useRouter } from "next/router";
+import useSWR from "swr";
 
 export default function MovieDetailPage() {
     const { query } = useRouter();
-    console.info(query.movie);
+
+    const { data, error, isLoading } = useSWR(`/api/movie/${query.movie}`, fetcher)
 
     return (
         <>
-            <h1 className="text-3xl">Detail Movie</h1>
-            <p>Movie: { query.movie }</p>
+            <MovieDetailViews movie={isLoading ? [] : data.data}/>
         </>
     );
 }
