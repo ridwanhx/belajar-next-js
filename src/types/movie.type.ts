@@ -15,4 +15,6 @@ export type movieType = {
   rating: number;
   poster: string;
   release_date: Timestamp;
+  synopsis: string;
+  quote: string;
 };

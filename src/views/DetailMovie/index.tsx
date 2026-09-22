@@ -28,6 +28,10 @@ export default function MovieDetailViews({ movie }: { movie: movieType }) {
             : "N/A"}
         </li>
         <li>{movie.rating}</li>
+        <li>
+          <blockquote>{movie.quote}</blockquote>
+        </li>
+        <li>{movie.synopsis}</li>
       </ul>
     </div>
   );
