@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "../Navbar";
 import { useRouter } from "next/router";
+import SubNavbar from "../SubNavbar";
 
 // aturan di typescript mengharuskan kita untuk mendefinisikan type props terlebih dahulu ketika ingin menggunakan props sebagai parameter pada function
 type AppShellProps = {
@@ -10,6 +11,7 @@ type AppShellProps = {
 // disable navbar
 // inisialisasi variabel di halaman mana saja tampilan navbar ini akan di disable
 const disableNavbar = ["/auth/login", "/auth/register", "/404"];
+const disableSubNavbar = ["/movie/[movie]"]
 
 export default function AppShell(props: AppShellProps) {
     const { children } = props;
@@ -20,6 +22,7 @@ export default function AppShell(props: AppShellProps) {
             {/* lakukan conditional rendering */}
             {/* cek apakah didalam disableNavbar tidak mengandung nama path/pathname yang sudah didaftarkan */}
             {!disableNavbar.includes(pathname) && <Navbar/>}
+            {disableSubNavbar.includes(pathname) && <SubNavbar/>}
             {children}
         </main>
     );
