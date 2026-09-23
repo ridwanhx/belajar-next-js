@@ -24,6 +24,8 @@ export default function MovieViews({ movies }: { movies: movieType[] }) {
             {movies.length > 0 ? (
               <>
                 {movies.map((movie: movieType, index: number) => (
+                  // Eps. 10 - Rendering Dynamic Routes
+                  // mengganti tag dari <a> ke <Link> dengan attr href mengarah ke halaman /movie/:movie.id
                   <Link href={`/movie/${movie.id}`}
                     className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm cursor-pointer"
                     key={movie.id || index}
