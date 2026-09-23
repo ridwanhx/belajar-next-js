@@ -17,4 +17,5 @@ export type movieType = {
   release_date: Timestamp;
   synopsis: string;
   quote: string;
+  rating_age: string;
 };
