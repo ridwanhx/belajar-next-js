@@ -1,6 +1,7 @@
 import { fetcher } from "@/lib/swr/fetcher";
 import { movieType } from "@/types/movie.type";
 import MovieDetailViews from "@/views/DetailMovie";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
@@ -20,6 +21,9 @@ export default function MovieDetailPage({ movie }: {movie: movieType}) {
             {/* <MovieDetailViews movie={movie} /> */}
 
             {/* Static Side Generation */}
+            <Head>
+                <title>Detail Movie</title>
+            </Head>
             <MovieDetailViews movie={movie} />
         </>
     );

@@ -2,6 +2,7 @@
 import { fetcher } from "@/lib/swr/fetcher";
 
 import MovieViews from "@/views/Movie";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 // implementasi penggunaan SWR untuk fetching data
@@ -38,6 +39,11 @@ export default function MoviePage() {
   const { data, error, isLoading } = useSWR(`/api/movie`, fetcher)
 
   return (
-    <MovieViews movies={isLoading ? [] : data.data} />
+    <>
+      <Head>
+        <title>Movie Page</title>
+      </Head>
+      <MovieViews movies={isLoading ? [] : data.data} />
+    </>
   );
 }

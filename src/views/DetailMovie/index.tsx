@@ -1,6 +1,7 @@
 import { movieType } from "@/types/movie.type";
 import styles from "./DetailMovie.module.scss"
 import CircularRating from "@/components/elements/Range";
+import { Icon } from "@iconify/react";
 
 export default function MovieDetailViews({ movie }: { movie: movieType }) {
   return (
@@ -54,8 +55,12 @@ export default function MovieDetailViews({ movie }: { movie: movieType }) {
               </div>
 
               {/* Quote */}
-              <div>
-                <blockquote className="text-xl text-[#BFBAD4] font-medium border-l-4 border-[#BFBAD4] italic pl-3">{movie.quote ?? "Data not available"}</blockquote>
+              <div className="flex">
+                <Icon icon={"boxicons:quote-left-filled"} className="text-slate-200 text-lg"/>
+                <blockquote className="text-xl text-[#BFBAD4] font-medium italic pl-2">
+                  {movie.quote ?? "Data not available"}
+                </blockquote>
+                <Icon icon={"boxicons:quote-left-filled"} className="flex text-slate-200 text-lg rotate-180 items-end"/>
               </div>
 
               {/* Overview */}
