@@ -55,12 +55,11 @@ export default function MovieDetailViews({ movie }: { movie: movieType }) {
               </div>
 
               {/* Quote */}
-              <div className="flex">
-                <Icon icon={"boxicons:quote-left-filled"} className="text-slate-200 text-lg"/>
-                <blockquote className="text-xl text-[#BFBAD4] font-medium italic pl-2">
+              <div className="flex relative items-center">
+                <Icon icon={"boxicons:quote-left-filled"} className="text-slate-200/50 text-lg scale-125 absolute -top-0.5"/>
+                <blockquote className="text-lg text-[#BFBAD4] font-medium italic pl-6">
                   {movie.quote ?? "Data not available"}
                 </blockquote>
-                <Icon icon={"boxicons:quote-left-filled"} className="flex text-slate-200 text-lg rotate-180 items-end"/>
               </div>
 
               {/* Overview */}
