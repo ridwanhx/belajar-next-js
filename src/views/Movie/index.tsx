@@ -33,10 +33,10 @@ export default function MovieViews({ movies }: { movies: movieType[] }) {
                     <img src={movie.poster} alt="img-1" className="w-full" />
                     <div className="flex-col p-4">
                       <h3 className="text-sm md:text-md lg:text-lg font-semibold text-slate-800 capitalize">
-                        {movie.title}
+                        {movie.title ?? "N/A"}
                       </h3>
                       <small className="text-xs lg:text-sm block mb-3 capitalize text-slate-400">
-                        {movie.category.join(", ")}
+                        {movie.category && movie.category.join(", ")}
                       </small>
                       <div className="flex justify-between items-center">
                         <span className="text-xs md:text-sm lg:text-md font-light text-slate-400">
