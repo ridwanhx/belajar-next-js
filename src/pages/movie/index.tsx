@@ -3,27 +3,30 @@ import { fetcher } from "@/lib/swr/fetcher";
 
 import MovieViews from "@/views/Movie";
 import Head from "next/head";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+// import { useRouter } from "next/router";
+// import { useEffect, useState } from "react";
+
 // implementasi penggunaan SWR untuk fetching data
 // SWR merupakan alternatif lain untuk fetching data selain menggunakan useEffect
 import useSWR from "swr";
 
 export default function MoviePage() {
+  // sudah di handle middleware
   // inisialisasi push
-  const { push } = useRouter();
+  // const { push } = useRouter();
   // inisialisasi state
-  const [isLogin, setIsLogin] = useState(true);
+  // const [isLogin, setIsLogin] = useState(true);
 
   // inisialisasi state movies, untuk fetching menggunakan useEffect()
   // const [movies, setMovies] = useState([]);
 
   // inisialisasi effect, login validation
-  useEffect(() => {
-    if (!isLogin) {
-      push("/auth/login");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!isLogin) {
+  //     push("/auth/login");
+  //   }
+  // }, []);
+  // tidak diperlukan lagi, karena sudah kita definisikan di middleware (Eps. 12 - Middleware)
 
   // // inisialisasi effect, fetching movie api
   // // before menggunakan swr
