@@ -4,7 +4,7 @@ export function middleware(req: NextRequest) {
     // redirect setiap kali ada yang mencoba mengakses url yang sudah didefinisikan di config agar kembali ke halaman awal atau "localhost:3000/"
 
     // implementasi konsep autentikasi sederhana menggunakan middleware
-    const isLogin = false;
+    const isLogin = true;
 
     if (isLogin) {
         // jika sudah login, maka boleh next ke halaman yang dituju

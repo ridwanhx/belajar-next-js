@@ -1,3 +1,4 @@
+import { signIn } from "next-auth/react";
 import styles from "./Navbar.module.scss"
 import {Icon} from "@iconify/react"
 export default function Navbar() {
@@ -20,7 +21,7 @@ export default function Navbar() {
                         <a href="#" className="capitalize tracking-tight">join <span className="uppercase">mymdb</span></a>
                     </li>
                     <li>
-                        <a href="#" className="capitalize tracking-tight">Login</a>
+                        <button onClick={() => signIn()} className="capitalize tracking-tight">Login</button>
                     </li>
                     <li>
                         <a href="#" className="uppercase tracking-tight border p-1.5 rounded-sm text-sm">en</a>
