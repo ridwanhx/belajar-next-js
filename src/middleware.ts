@@ -1,22 +1,12 @@
 import { NextResponse, NextRequest } from "next/server";
+import withAuth from "./middlewares/withAuth";
 
-export function middleware(req: NextRequest) {
-    // redirect setiap kali ada yang mencoba mengakses url yang sudah didefinisikan di config agar kembali ke halaman awal atau "localhost:3000/"
-
-    // implementasi konsep autentikasi sederhana menggunakan middleware
-    const isLogin = true;
-
-    if (isLogin) {
-        // jika sudah login, maka boleh next ke halaman yang dituju
-        return NextResponse.next()
-    } else {
-        // jika belum login, redirect kembali ke halaman login
-        return NextResponse.redirect(new URL("/auth/login", req.url));
-    }
+// setiap logic didefinisikan di masing-masing middleware (dalam kasus ini, logic withAuth didefinisikan di file middlewares/withAuth.ts)
+// sehingga, untuk kasus ini, file middleware.ts ini sifatnya hanya akan mempersilahkan untuk setiap pathname yang tidak masuk list requireAuth / pathname yang di definisikan di bawah
+// jadi, middleware ini tugasnya jadi filter terakhir, jika sudah di approve oleh logic dari withAuth, maka middleware ini akan mempersilahkan pengakses untuk melanjutkan ke pathname yang dituju
+export function mainMiddleware(req: NextRequest) {
+    const res = NextResponse.next();
+    return res;
 }
 
-export const config = {
-    // baris matcher ini digunakan untuk mendefinisikan halaman mana yang mau kita redirect / untuk menjalankan baris program middleware yang sudah kita definisikan diatas, mau di halaman mana saja
-    // sehingga nantinya, setiap kita mencoba mengakses halaman yang kita definisikan pada matcher ini, otomatis akan menjalankan baris kode middleware diatas
-    matcher: ["/movie", "/about", "/product"]
-}
+export default withAuth(mainMiddleware, ["/movie", "/about", "/product"]);

@@ -28,6 +28,7 @@ const authOptions: NextAuthOptions = {
                 // tentukan attribute dari masing-masing kredensial
                 // merupakan kredensial yang akan ditampilkan di halaman signIn (next-auth/react)
                 // tempat kita mendeklarasikan "view" nya
+                fullName: { label: "Full Name", type: "text", placeholder: "Your full name", autoFocus: true },
                 email: { label: "Email", type: "email" },
                 password: { label: "Password", type: "password" },
             },
@@ -36,17 +37,18 @@ const authOptions: NextAuthOptions = {
             async authorize(credentials) {
                 // inisialisasi tipe untuk masing-masing kredensial
                 // tempat kita menangkat nilai yang dikirim melalui "view" nya
-                const { email, password } = credentials as {
+                const { fullName, email, password } = credentials as {
+                    fullName: string,
                     email: string,
                     password: string,
                 };
 
                 // inisialisasi atribut user
                 // best practice nya harusnya mengacu langsung pada data real yang ada di database, hanya saja untuk implementasi kali ini kita akan gunakan data static
-                const user: any = { id: 1, email: email, password: password };
+                const user: any = { id: 1, fullName: fullName, email: email, password: password };
                 // beri kondisi, jika data user ada, maka kembalikan data user, jika data user tidak ada, kembalikan null
                 if (user) {
-                    console.log(user);
+                    // console.log(user);
                     return user;
                 } else {
                     return null;
@@ -62,22 +64,28 @@ const authOptions: NextAuthOptions = {
             // berikan kondisi, jika account provider adalah "credentials"
             if (account?.provider === "credentials") {
                 // asosiasi nilai token.email dari user.email
-                token.email = user.email
+                token.fullName = user.fullName;
+                token.email = user.email;
             }
-            console.log(token);
+            // console.log(token);
             return token;
         },
 
         // jalankan async session
         // session dikirimkan dengan membawa nilai yang dihasilkan dari proses jwt diatas
         async session({ session, token }: any) {
+            // jika di dalam token ada nilai "fullName" (mencari jarum dalam jerami)
+            if ("fullName" in token) {
+                // asosiasi nilai token.fullName kedalam session
+                session.user.fullName = token.fullName;
+            }
             // jika di dalam token ada nilai "email" (mencari jarum dalam jerami)
             if ("email" in token) {
                 // asosiasi nilai token.email kedalam session
                 session.user.email = token.email;
             }
             // kembalikan nilai session
-            console.log(session);
+            // console.log(session);
             return session;
         }
     }

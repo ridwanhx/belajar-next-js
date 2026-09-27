@@ -1,7 +1,11 @@
-import { signIn } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import styles from "./Navbar.module.scss"
 import {Icon} from "@iconify/react"
 export default function Navbar() {
+    // ambil data yang dikirimkan melalui session
+    const { data }: any = useSession();
+    console.info(data)
+
     return (
         <nav className={styles.navigations__navbar}>
             <div className="flex items-center gap-8">
@@ -14,14 +18,27 @@ export default function Navbar() {
                 </ul>
             </div>
             <ul className="flex items-center gap-8 flex-row-reverse font-semibold">
-                    <li>
-                        <Icon icon={"bi:search"} className="text-2xl cursor-pointer" />
-                    </li>
-                    <li>
-                        <a href="#" className="capitalize tracking-tight">join <span className="uppercase">mymdb</span></a>
-                    </li>
-                    <li>
-                        <button onClick={() => signIn()} className="capitalize tracking-tight">Login</button>
+                <li>
+                    {data ? (    
+                        <div className="flex items-center gap-2">
+                            <span className="flex items-center justify-center w-9 h-9 bg-indigo-400 rounded-full border-2">
+                                { data.user.fullName.split(" ").map((name: string) => name.slice(0, 1)).join("")}
+                            </span>
+                            <div className="flex flex-col">
+                                <small className="text-xs font-bold">{ data.user.fullName }</small>
+                                <small className="font-light text-[9px]">Member</small>
+                            </div>
+                        </div>
+                    ) : (
+                            <div className="block"/>
+                    )}
+                </li>
+                <li>
+                    {data ? (
+                        <button onClick={() => signOut()} className="capitalize tracking-tight">Sign Out</button>
+                    ) : (
+                        <button onClick={() => signIn()} className="capitalize tracking-tight">Sign In</button>
+                    )}
                     </li>
                     <li>
                         <a href="#" className="uppercase tracking-tight border p-1.5 rounded-sm text-sm">en</a>
