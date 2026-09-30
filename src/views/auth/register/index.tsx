@@ -13,7 +13,7 @@ export default function RegisterViews() {
 
   // sebelum view, tambahkan event handler berikut
   const handleSubmit = async (event: any) => {
-    // kondisi awal / reset event
+    // kondisi awal / reset event (perlu di definisikan di paling awal karena ini berkaitan dengan me-reset kembali event ke kondisi semula)
     // jalankan prevent default (me-reset karakteristik default dari suatu elemen yang sedang berjalan)
     event.preventDefault();
     // reset state set error
