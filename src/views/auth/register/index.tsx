@@ -18,6 +18,8 @@ export default function RegisterViews() {
     event.preventDefault();
     // reset state set error
     setError("")
+    // set is loading menjadi true
+    setIsLoading(true);
 
     // ambil setiap value yang di inputkan melalui input masing-masing
     const data = {
@@ -75,6 +77,7 @@ export default function RegisterViews() {
             id="fullName"
             name="fullName"
             className={authStyle["form-input"]}
+            required
             placeholder="Your Full Name"
           />
         </div>
@@ -89,6 +92,7 @@ export default function RegisterViews() {
             className={authStyle["form-input"]}
             autoComplete="off"
             autoFocus
+            required
             placeholder="Your Email"
           />
         </div>
@@ -101,6 +105,7 @@ export default function RegisterViews() {
             id="password"
             name="password"
             className={authStyle["form-input"]}
+            required
             placeholder="Your Password"
           />
         </div>
