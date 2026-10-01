@@ -80,3 +80,26 @@ export async function signUp(
         })
     }
 }
+
+// inisialsiasi async function untuk handle sign in / login
+export async function signIn(userData: { email: string }) {
+    // inisialisasi query
+    // mencari email yang sama dengan yang dikirimkan oleh user pada collection "users"
+    const q = query(
+        collection(firestore, "users"),
+        where("email", "==", userData.email),
+    );
+
+    // inisialisasi snapshot
+    const snapshot = await getDocs(q);
+
+    // mapping data hasil snapshot
+    const data = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+    }));
+
+    // beri kondisi
+    // jika data hasil query berhasil didapat, maka ambil nilai index pertama dari data, jika gagal maka kembalikan null
+    return (data) ? data[0] : null;
+}
