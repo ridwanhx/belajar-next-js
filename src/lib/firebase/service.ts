@@ -1,7 +1,7 @@
 import { addDoc, collection, doc, getDoc, getDocs, getFirestore, query, where } from "firebase/firestore";
 import app from "./init"
 // import bcrypt
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 // inisialisasi firestore
 const firestore = getFirestore(app);
@@ -75,6 +75,7 @@ export async function signUp(
             // kembalikan callback dengan status true dan pesan register success
             callback({ status: true, message: "Register success" });
         }).catch((error) => {
+            console.error("signUp error: ", error);
             // catching error
             callback({ status: false, message: error });
         })
@@ -101,5 +102,5 @@ export async function signIn(userData: { email: string }) {
 
     // beri kondisi
     // jika data hasil query berhasil didapat, maka ambil nilai index pertama dari data, jika gagal maka kembalikan null
-    return (data) ? data[0] : null;
+    return (data.length > 0) ? data[0] : null;
 }

@@ -1,5 +1,5 @@
 import { signIn } from "@/lib/firebase/service";
-import { compare } from "bcrypt";
+import { compare } from "bcryptjs";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
