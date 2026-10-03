@@ -42,11 +42,11 @@ export default function LoginViews() {
             } else {
                 setIsLoading(false);
                 // berikan error response
-                setError(res.error);
+                setError("Email or password is incorrect.");
             }
         } catch (error: any) {
             setIsLoading(false);
-            setError(error);
+            setError("Email or password is incorrect.");
         }
     }
     return (
@@ -57,7 +57,7 @@ export default function LoginViews() {
                 </div>
                 {error && (
                     <div className="mb-3">
-                        <p className="p-4 border-red-400 border text-amber-100 bg-red-400">Login failed</p>
+                        <p className="p-4 border-red-400 border text-amber-100 bg-red-400">{ error }</p>
                     </div>
                 )}
                 <div className={authStyle["mb-3"]}>

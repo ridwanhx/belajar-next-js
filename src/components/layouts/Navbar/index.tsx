@@ -26,7 +26,7 @@ export default function Navbar() {
                             </span>
                             <div className="flex flex-col">
                                 <small className="text-xs font-bold">{ data.user.fullName }</small>
-                                <small className="font-light text-[9px]">Member</small>
+                                <small className="font-light text-[9px]">{data.user.role}</small>
                             </div>
                         </div>
                     ) : (

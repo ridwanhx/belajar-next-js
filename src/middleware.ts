@@ -9,4 +9,4 @@ export function mainMiddleware(req: NextRequest) {
     return res;
 }
 
-export default withAuth(mainMiddleware, ["/movie", "/about", "/product"]);
+export default withAuth(mainMiddleware, ["/movie", "/about", "/product", "/admin"]);
