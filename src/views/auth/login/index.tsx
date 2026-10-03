@@ -66,7 +66,7 @@ export default function LoginViews() {
                 <button type="submit" className={authStyle["btn-primary"]} onClick={handleSubmit}>Submit</button>
                 <div className={authStyle["form-footer"]}>
                     <span className={authStyle["text-footer"]}>Haven't account yet? </span>
-                    <Link href="/auth/register" className={authStyle["anchor-footer"]}>Registrasi</Link>
+                    <Link href="/auth/register" className={authStyle["anchor-footer"]}>Register</Link>
                 </div>
             </form>
         </div>

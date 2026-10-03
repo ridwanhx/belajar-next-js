@@ -29,7 +29,7 @@ export default function RegisterViews() {
     };
 
     // fetching ke api register
-    const result = await fetch("/api/register", {
+    const result = await fetch("/api/auth/register", {
       // inisialisasi method (penting karena jika ini tidak di inisialisasikan, nantinya api akan mengembalikan status 405 / not allowed)
       method: "POST",
       // inisialsiasikan juga headers, berisi content type
@@ -39,6 +39,8 @@ export default function RegisterViews() {
       // body berisi json yang sudah di konversi menjadi string
       body: JSON.stringify(data)
     });
+
+    console.log(result)
 
     // jika status mengembalikan status code 200, maka
     if (result.status === 200) {

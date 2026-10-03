@@ -75,7 +75,6 @@ export async function signUp(
             // kembalikan callback dengan status true dan pesan register success
             callback({ status: true, message: "Register success" });
         }).catch((error) => {
-            console.error("signUp error: ", error);
             // catching error
             callback({ status: false, message: error });
         })
