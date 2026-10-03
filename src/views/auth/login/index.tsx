@@ -51,10 +51,15 @@ export default function LoginViews() {
     }
     return (
         <div className={authStyle["container"]}>
-            <form className={authStyle["form-group"]}>
+            <form className={authStyle["form-group"]} onSubmit={handleSubmit}>
                 <div className={authStyle["mb-3"]}>
                     <h3 className={authStyle["form-header"]}>Form Login</h3>
                 </div>
+                {error && (
+                    <div className="mb-3">
+                        <p className="p-4 border-red-400 border text-amber-100 bg-red-400">Login failed</p>
+                    </div>
+                )}
                 <div className={authStyle["mb-3"]}>
                     <label className={authStyle["form-label"]} htmlFor="email">Email</label>
                     <input className={authStyle["form-input"]} type="email" id="email" name="email" autoComplete="off" autoFocus required />
@@ -63,7 +68,7 @@ export default function LoginViews() {
                     <label className={authStyle["form-label"]} htmlFor="password">Password</label>
                     <input className={authStyle["form-input"]} type="password" id="password" name="password" required />
                 </div>
-                <button type="submit" className={authStyle["btn-primary"]} onClick={handleSubmit}>Submit</button>
+                <button type="submit" className={authStyle["btn-primary"]}>Submit</button>
                 <div className={authStyle["form-footer"]}>
                     <span className={authStyle["text-footer"]}>Haven't account yet? </span>
                     <Link href="/auth/register" className={authStyle["anchor-footer"]}>Register</Link>

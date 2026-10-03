@@ -40,8 +40,6 @@ export default function RegisterViews() {
       body: JSON.stringify(data)
     });
 
-    console.log(result)
-
     // jika status mengembalikan status code 200, maka
     if (result.status === 200) {
       // kosongkan kembali semua field input
