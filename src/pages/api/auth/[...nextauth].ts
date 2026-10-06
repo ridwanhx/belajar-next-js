@@ -2,6 +2,7 @@ import { signIn } from "@/lib/firebase/service";
 import { compare } from "bcryptjs";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 
 // inisialisasi authOptions dengan tipe NextAuthOptions
 const authOptions: NextAuthOptions = {
@@ -62,6 +63,13 @@ const authOptions: NextAuthOptions = {
                     return null;
                 }
             }
+        }),
+
+        // Eps. 16 - Login Google
+        // konfigurasi google provider
+        GoogleProvider({
+            clientId: process.env.GOOGLE_OAUTH_CLIENT_ID || '',
+            clientSecret: process.env.GOOGLE_OAUTH_CLIENT_SECRET || ''
         })
     ],
 
