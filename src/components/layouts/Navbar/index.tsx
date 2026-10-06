@@ -4,7 +4,8 @@ import {Icon} from "@iconify/react"
 export default function Navbar() {
     // ambil data yang dikirimkan melalui session
     const { data }: any = useSession();
-    console.info(data)
+    
+    const name = data?.user?.name || data?.user?.fullname;
 
     return (
         <nav className={styles.navigations__navbar}>
@@ -22,10 +23,10 @@ export default function Navbar() {
                     {data ? (    
                         <div className="flex items-center gap-2">
                             <span className="flex items-center justify-center w-9 h-9 bg-indigo-400 rounded-full border-2">
-                                { data.user.fullName.split(" ").map((name: string) => name.slice(0, 1)).join("")}
+                                { name.split(" ").map((name: string) => name.slice(0, 1)).join("")}
                             </span>
                             <div className="flex flex-col">
-                                <small className="text-xs font-bold">{ data.user.fullName }</small>
+                                <small className="text-xs font-bold">{ name }</small>
                                 <small className="font-light text-[9px]">{data.user.role}</small>
                             </div>
                         </div>

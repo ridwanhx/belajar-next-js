@@ -23,7 +23,7 @@ export default function RegisterViews() {
 
     // ambil setiap value yang di inputkan melalui input masing-masing
     const data = {
-      fullName: event.target.fullName.value,
+      fullname: event.target.fullname.value,
       email: event.target.email.value,
       password: event.target.password.value,
     };
@@ -69,13 +69,13 @@ export default function RegisterViews() {
           </div>
         )}
         <div className={authStyle["mb-3"]}>
-          <label htmlFor="fullName" className={authStyle["form-label"]}>
+          <label htmlFor="fullname" className={authStyle["form-label"]}>
             Full Name
           </label>
           <input
             type="text"
-            id="fullName"
-            name="fullName"
+            id="fullname"
+            name="fullname"
             className={authStyle["form-input"]}
             required
             placeholder="Your Full Name"

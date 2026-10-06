@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import authStyle from '@/views/auth/Auth.module.css';
 import { useState } from "react";
 import { signIn } from "next-auth/react";
+import { Icon } from "@iconify/react";
 
 export default function LoginViews() {
     // inisialisasi state
@@ -68,7 +69,26 @@ export default function LoginViews() {
                     <label className={authStyle["form-label"]} htmlFor="password">Password</label>
                     <input className={authStyle["form-input"]} type="password" id="password" name="password" required />
                 </div>
-                <button type="submit" className={authStyle["btn-primary"]}>Submit</button>
+                <div className="flex flex-col gap-3">
+                    <button type="submit" className={authStyle["btn-primary"]}>Sign In</button>
+
+                    <div className="flex">
+                        <div className="border-t border-slate-100 w-1/2 m-auto" />
+                        <span className="text-white px-2">or</span>
+                        <div className="border-t border-slate-100 w-1/2 m-auto"/>
+                    </div>
+                    
+                    {/* Implementasi Login with google */}
+                    <button onClick={() => signIn("google", {
+                        callbackUrl,
+                        redirect: false,
+                    })} className="bg-white py-3.5 rounded-full flex items-center justify-center">
+                        <Icon icon={"devicon:google"} />
+                        <span className="ml-2">
+                        Sign In with Google
+                        </span>
+                    </button>
+                </div>
                 <div className={authStyle["form-footer"]}>
                     <span className={authStyle["text-footer"]}>Haven't account yet? </span>
                     <Link href="/auth/register" className={authStyle["anchor-footer"]}>Register</Link>

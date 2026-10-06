@@ -31,7 +31,7 @@ const authOptions: NextAuthOptions = {
                 // tentukan attribute dari masing-masing kredensial
                 // merupakan kredensial yang akan ditampilkan di halaman signIn (next-auth/react)
                 // tempat kita mendeklarasikan "view" nya
-                // fullName: { label: "Full Name", type: "text", placeholder: "Your full name", autoFocus: true },
+                // fullname: { label: "Full Name", type: "text", placeholder: "Your full name", autoFocus: true },
 
                 email: { label: "Email", type: "email" },
                 password: { label: "Password", type: "password" },
@@ -80,22 +80,46 @@ const authOptions: NextAuthOptions = {
             // berikan kondisi, jika account provider adalah "credentials"
             if (account?.provider === "credentials") {
                 // asosiasi nilai token.email dari user.email
-                token.fullName = user.fullName;
+                token.fullname = user.fullname;
                 token.email = user.email;
                 token.role = user.role;
             }
-            // console.log(token);
+
+            // inisialisasi logic jika login menggunakan google
+            if (account?.provider === "google") {
+                // inisialisasi 3 atribut wajib + 1 atribut opsional (tapi sangat disarankan)
+                const data = {
+                    fullname: user.name,
+                    email: user.email,
+                    image: user.image,
+                    type: "google"
+                }
+                
+                // inisialisasi token / nilai yang akan dikirimkan ke halaman dashboard melalui session ketika login berhasil
+                token.fullname = data.fullname;
+                token.email = data.email;
+                token.image = data.image;
+                token.type = data.type;
+            }
+
             return token;
         },
 
         // jalankan async session
         // session dikirimkan dengan membawa nilai yang dihasilkan dari proses jwt diatas
         async session({ session, token }: any) {
-            // jika di dalam token ada nilai "fullName" (mencari jarum dalam jerami)
-            if ("fullName" in token) {
-                // asosiasi nilai token.fullName kedalam session
-                session.user.fullName = token.fullName;
+            // jika di dalam token ada nilai "fullname" (mencari jarum dalam jerami)
+            if ("fullname" in token) {
+                // asosiasi nilai token.fullname kedalam session
+                session.user.fullname = token.fullname;
             }
+
+            // inisialisasi jika di dalam token ada image
+            if ("image" in token) {
+                // asosiasi nilai token.image kedalam session
+                session.user.image = token.image;
+            }
+
             // jika di dalam token ada nilai "role" (mencari jarum dalam jerami)
             if ("role" in token) {
                 // asosiasi nilai token.role kedalam session
