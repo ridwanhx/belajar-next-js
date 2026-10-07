@@ -102,7 +102,7 @@ const authOptions: NextAuthOptions = {
                     data: any
                 }) => {
                     // result merepresentasikan callback, dan pada kondisi ini, kita akan menjadikan status yang dihasilkan oleh callback sebagai parameter kondisi
-                    if (result.status.true) {
+                    if (result.status) {
                         token.email = result.data.email;
                         token.fullname = result.data.fullname;
                         token.type = result.data.type;
