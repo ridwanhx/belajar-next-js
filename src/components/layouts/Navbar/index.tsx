@@ -4,6 +4,8 @@ import {Icon} from "@iconify/react"
 export default function Navbar() {
     // ambil data yang dikirimkan melalui session
     const { data }: any = useSession();
+
+    console.info(data);
     
     const name = data?.user?.name || data?.user?.fullname;
 
@@ -23,7 +25,14 @@ export default function Navbar() {
                     {data ? (    
                         <div className="flex items-center gap-2">
                             <span className="flex items-center justify-center w-9 h-9 bg-indigo-400 rounded-full border-2">
-                                { name.split(" ").map((name: string) => name.slice(0, 1)).join("")}
+                                {/* beri kondisi */}
+                                {/* jika image mengembalikan nilai, maka tampilkan gambar */}
+                                {data.user.image ? (
+                                    <img className="w-full rounded-full" src={ data.user.image } alt={data.user.fullname} draggable={"false"} />  
+                                ) : (
+                                    // jika image tidak memiliki nilai, maka beri nickname
+                                   <span>{ name.split(" ").map((name: string) => name.slice(0, 1)).join("")}</span>
+                                )}
                             </span>
                             <div className="flex flex-col">
                                 <small className="text-xs font-bold">{ name }</small>

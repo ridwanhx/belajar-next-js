@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, getDoc, getDocs, getFirestore, query, where } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, getDocs, getFirestore, query, updateDoc, where } from "firebase/firestore";
 import app from "./init"
 // import bcrypt
 import bcrypt from "bcryptjs";
@@ -102,4 +102,56 @@ export async function signIn(userData: { email: string }) {
     // beri kondisi
     // jika data hasil query berhasil didapat, maka ambil nilai index pertama dari data, jika gagal maka kembalikan null
     return (data.length > 0) ? data[0] : null;
+}
+
+// inisialisasi async function untuk handle sign in melalui google
+export async function signInWithGoogle(userData: any, callback: any) {
+    // inisialisasi query untuk mencari email yang sama yang dikirimkan oleh user
+    const q = query(collection(firestore, "users"), where("email", "==", userData.email));
+
+    // inisialisasi snapshot u/ menjalankan query dan menampung nilai kembaliannya
+    const snapshot = await getDocs(q);
+
+    // mapping data hasil kembalian snapshot
+    const data : any = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data()
+    }));
+
+    // beri kondisi
+    // jika sudah ada data yang sama yang tersimpan di dalam firestore, maka lakukan update data tersebut
+    if (data.length > 0) {
+        // tentukan nilai default user data role (user yang sudah terdaftar)
+        userData.role = data[0].role;
+        await updateDoc(doc(firestore, "users", data[0].id), userData).then(() => {
+            callback({
+                status: true,
+                message: "Sign In with Google Success",
+                data: userData
+            })
+            // catching error dengan mengembalikan response sign in failed
+        }).catch(() => {
+            callback({
+                status: false,
+                message: "Sign In with Google Failed"
+            });
+        });
+    } else {
+        // tentukan nilai default untuk user data role (user baru)
+        userData.role = "member";
+        // jika belum ada data yang sama yang tersimpan di dalam firestore, maka tambahkan data baru kedalam collection di dalam firestore, dengan nama collectionnya yaitu "users", berdasarkan userData yang dikirimkan user
+        await addDoc(collection(firestore, "users"), userData).then(() => {
+            callback({
+                status: true,
+                message: "Sign In with Google Success",
+                data: userData
+            });
+            // catching error dengan mengembalikan response sign in failed
+        }).catch(() => {
+            callback({
+                status: false,
+                message: "Sign In with Google Failed"
+            });
+        });
+    }
 }

@@ -52,48 +52,48 @@ export default function LoginViews() {
     }
     return (
         <div className={authStyle["container"]}>
-            <form className={authStyle["form-group"]} onSubmit={handleSubmit}>
-                <div className={authStyle["mb-3"]}>
-                    <h3 className={authStyle["form-header"]}>Form Login</h3>
-                </div>
-                {error && (
-                    <div className="mb-3">
-                        <p className="p-4 border-red-400 border text-amber-100 bg-red-400">{ error }</p>
+            <div className={authStyle["form-group"]}>
+                <form onSubmit={handleSubmit}>
+                    <div className={authStyle["mb-3"]}>
+                        <h3 className={authStyle["form-header"]}>Form Login</h3>
                     </div>
-                )}
-                <div className={authStyle["mb-3"]}>
-                    <label className={authStyle["form-label"]} htmlFor="email">Email</label>
-                    <input className={authStyle["form-input"]} type="email" id="email" name="email" autoComplete="off" autoFocus required />
-                </div>
-                <div className={authStyle["mb-3"]}>
-                    <label className={authStyle["form-label"]} htmlFor="password">Password</label>
-                    <input className={authStyle["form-input"]} type="password" id="password" name="password" required />
-                </div>
-                <div className="flex flex-col gap-3">
+                    {error && (
+                        <div className="mb-3">
+                            <p className="p-4 border-red-400 border text-amber-100 bg-red-400">{ error }</p>
+                        </div>
+                    )}
+                    <div className={authStyle["mb-3"]}>
+                        <label className={authStyle["form-label"]} htmlFor="email">Email</label>
+                        <input className={authStyle["form-input"]} type="email" id="email" name="email" autoComplete="off" autoFocus required />
+                    </div>
+                    <div className={authStyle["mb-3"]}>
+                        <label className={authStyle["form-label"]} htmlFor="password">Password</label>
+                        <input className={authStyle["form-input"]} type="password" id="password" name="password" required />
+                    </div>
                     <button type="submit" className={authStyle["btn-primary"]}>Sign In</button>
-
-                    <div className="flex">
-                        <div className="border-t border-slate-100 w-1/2 m-auto" />
+                </form>
+                {/* Implementasi Login with google */}
+                <div className="flex my-3">
+                    <div className="border-t border-slate-100 w-1/2 m-auto" />
                         <span className="text-white px-2">or</span>
                         <div className="border-t border-slate-100 w-1/2 m-auto"/>
-                    </div>
-                    
-                    {/* Implementasi Login with google */}
+                </div>
+                <div className="flex justify-center items-center">
                     <button onClick={() => signIn("google", {
-                        callbackUrl,
-                        redirect: false,
-                    })} className="bg-white py-3.5 rounded-full flex items-center justify-center">
-                        <Icon icon={"devicon:google"} />
-                        <span className="ml-2">
-                        Sign In with Google
-                        </span>
+                            callbackUrl,
+                            redirect: false,
+                        })} className="bg-white py-3.5 rounded-full flex items-center justify-center w-full cursor-pointer">
+                            <Icon icon={"devicon:google"} />
+                            <span className="ml-2">
+                            Sign In with Google
+                            </span>
                     </button>
                 </div>
                 <div className={authStyle["form-footer"]}>
-                    <span className={authStyle["text-footer"]}>Haven't account yet? </span>
-                    <Link href="/auth/register" className={authStyle["anchor-footer"]}>Register</Link>
-                </div>
-            </form>
+                        <span className={authStyle["text-footer"]}>Haven't account yet? </span>
+                        <Link href="/auth/register" className={authStyle["anchor-footer"]}>Register</Link>
+                    </div>
+            </div>
         </div>
     );
 }

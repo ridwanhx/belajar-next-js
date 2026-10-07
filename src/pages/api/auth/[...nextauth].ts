@@ -1,4 +1,4 @@
-import { signIn } from "@/lib/firebase/service";
+import { signIn, signInWithGoogle } from "@/lib/firebase/service";
 import { compare } from "bcryptjs";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -76,7 +76,7 @@ const authOptions: NextAuthOptions = {
     // 4. inisialisasi callbacks
     callbacks: {
         // inisialisasi jwt (JSON Web Token)
-        jwt({ token, account, profile, user }: any) {
+        async jwt({ token, account, profile, user }: any) {
             // berikan kondisi, jika account provider adalah "credentials"
             if (account?.provider === "credentials") {
                 // asosiasi nilai token.email dari user.email
@@ -94,14 +94,23 @@ const authOptions: NextAuthOptions = {
                     image: user.image,
                     type: "google"
                 }
-                
-                // inisialisasi token / nilai yang akan dikirimkan ke halaman dashboard melalui session ketika login berhasil
-                token.fullname = data.fullname;
-                token.email = data.email;
-                token.image = data.image;
-                token.type = data.type;
-            }
 
+                // jalankan signInWithGoogle
+                await signInWithGoogle(data, (result: {
+                    status: boolean,
+                    message: string,
+                    data: any
+                }) => {
+                    // result merepresentasikan callback, dan pada kondisi ini, kita akan menjadikan status yang dihasilkan oleh callback sebagai parameter kondisi
+                    if (result.status.true) {
+                        token.email = result.data.email;
+                        token.fullname = result.data.fullname;
+                        token.type = result.data.type;
+                        token.image = result.data.image;
+                        token.role = result.data.role;
+                    }
+                })
+            }
             return token;
         },
 
