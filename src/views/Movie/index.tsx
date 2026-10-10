@@ -4,6 +4,14 @@ import { SearchButton } from "@/components/elements/Button";
 import styles from "./Movie.module.scss";
 import { movieType } from "@/types/movie.type";
 import Link from "next/link";
+import Image from "next/image";
+// import next font
+import { Bebas_Neue } from "next/font/google";
+// inisialisasi font properties
+const bebasNeue = Bebas_Neue({
+  subsets: ["latin"],
+  weight: "400",
+})
 
 export default function MovieViews({ movies }: { movies: movieType[] }) {
   return (
@@ -30,9 +38,11 @@ export default function MovieViews({ movies }: { movies: movieType[] }) {
                     className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm cursor-pointer"
                     key={movie.id || index}
                   >
-                    <img src={movie.poster} alt="img-1" className="w-full" />
+                    <Image width={100} height={100} src={movie.poster} alt={movie.title} className="w-full" />
+
+                    {/* implementasi penggunaan font untuk elemen seperti judul / movie title */}
                     <div className="flex-col p-4">
-                      <h3 className="text-sm md:text-md lg:text-lg font-semibold text-slate-800 capitalize">
+                      <h3 className={`text-sm md:text-md lg:text-lg font-semibold text-slate-800 capitalize ${bebasNeue.className}`}>
                         {movie.title ?? "N/A"}
                       </h3>
                       <small className="text-xs lg:text-sm block mb-3 capitalize text-slate-400">

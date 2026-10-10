@@ -1,6 +1,8 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import styles from "./Navbar.module.scss"
 import {Icon} from "@iconify/react"
+import Script from "next/script";
+import Image from "next/image";
 export default function Navbar() {
     // ambil data yang dikirimkan melalui session
     const { data }: any = useSession();
@@ -12,7 +14,13 @@ export default function Navbar() {
     return (
         <nav className={styles.navigations__navbar}>
             <div className="flex items-center gap-8">
-                <a href="#" className={styles.navigations__header}>MYMDB</a>
+
+                {/* contoh implementasi sederhana penggunaan optimasi script */}
+                <a href="#" id="navbar-title" className={styles.navigations__header}></a>
+                {/* attribute strategy diperuntukkan agar elemen di eksekusi secara lazy / tunggu sampai perintah sebelumnya di eksekusi */}
+                <Script id="script-title" strategy="lazyOnload">
+                    {`document.getElementById("navbar-title").innerHTML = "MyMDB"`}
+                </Script>
                 <ul className={styles.navigations__items}>
                     <li><a href="#" className={styles.navigations__item}>Home</a></li>
                     <li><a href="#" className={styles.navigations__item}>Service</a></li>
@@ -28,7 +36,8 @@ export default function Navbar() {
                                 {/* beri kondisi */}
                                 {/* jika image mengembalikan nilai, maka tampilkan gambar */}
                                 {data.user.image ? (
-                                    <img className="w-full rounded-full" src={ data.user.image } alt={data.user.fullname} draggable={"false"} />  
+                                    // optimasi gambar dengan next image, jangan lupa untuk menambahkan configurasi pada next config
+                                    <Image width={100} height={100} className="w-full rounded-full" src={ data.user.image } alt={data.user.fullname} draggable={"false"} />  
                                 ) : (
                                     // jika image tidak memiliki nilai, maka beri nickname
                                    <span>{ name.split(" ").map((name: string) => name.slice(0, 1)).join("")}</span>

@@ -2,6 +2,16 @@ import { movieType } from "@/types/movie.type";
 import styles from "./DetailMovie.module.scss"
 import CircularRating from "@/components/elements/Range";
 import { Icon } from "@iconify/react";
+// optimalisasi image dengan next image
+import Image from "next/image";
+// optimalisasi font dengan next font
+import { Bebas_Neue } from "next/font/google";
+
+// inisialisasi font
+const bebasNeue = Bebas_Neue({
+  subsets: ["latin"],
+  weight: "400"
+});
 
 export default function MovieDetailViews({ movie }: { movie: movieType }) {
   return (
@@ -9,9 +19,11 @@ export default function MovieDetailViews({ movie }: { movie: movieType }) {
       <div className="p-4 sm:p-8">
         <div className="grid md:grid-cols-6 gap-6 md:gap-8">
           <div className="col-span-6 md:col-span-2 flex justify-center md:items-start lg:items-center">
-            <img
+            <Image
+              width={100}
+              height={100}
             src={movie.poster && movie.poster}
-            alt="movie poster"
+            alt={movie.title}
             className="w-full max-w-sm md:max-w-none rounded-xl max-h-screen object-cover"
           />
             </div>
@@ -20,7 +32,7 @@ export default function MovieDetailViews({ movie }: { movie: movieType }) {
 
               {/* Title */}
               <div>
-                <div className="flex flex-wrap items-center gap-2 mb-2">
+                <div className={`flex flex-wrap items-center gap-2 mb-2 ${bebasNeue.className}`}>
                       <h3 className="text-2xl font-bold text-white cursor-pointer hover:underline hover:underline-offset-3 text-shadow-2xs">
                         {movie.title}
                       </h3>
